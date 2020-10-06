@@ -26,7 +26,7 @@ const managerInfo =
 [ 
     {
       type: `input`,
-      message:`Hello, Manager. Let's build your team. First let's collect YOUR info. What is your name?`,
+      message:`Hello, Manager. Let's build your engineering team. First let's collect YOUR info. What is your name?`,
       name: `name`
     },
     {

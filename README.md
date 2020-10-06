@@ -4,7 +4,7 @@
 
 ![supremeCommand](https://img.shields.io/github/languages/top/caitlinbou/supremeCommand)
 ## Description
-This project is a CLI using Node.js that takes input of employee information including one manager and as many engineers and interns as desired. The information is then rendered into an html file for easy managerial access.
+This project is a CLI using Node.js that takes input of employee information.  The input may be one manager and as many engineers and interns as desired. The information is then rendered into an html file for easy managerial access.
 ## Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
@@ -17,7 +17,7 @@ This program requires Node.js and the installation of [inquirer](https://www.npm
 ## Usage 
 Once inquirer has been installed and all files are in place, you run the "node app.js" command in the terminal and answer the prompts. When done adding additional employees, you select the option saying "no more employees to add" and an html file is rendered with all of the information that was input in the CLI.
 
-[Walkthrough Video]()
+[Walkthrough Video](https://drive.google.com/file/d/13Gp1Kg-7BdlLMqvNSQeTK82Wym4qgf9g/view)
 
 ## License 
 
@@ -32,7 +32,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Contributing
 I am open to contributions, but please reach out to discuss details. Thank you!
 ## Tests
-The tests are included in the repository, and are to ensure the class and subclasses are built accurately. They use [jest](https://jestjs.io/), so in order to run them you must run "npm install jest". Once installed, you run the command "npm run test" in the terminal.
+The tests are included in the repository, and are to ensure the class and subclasses are built accurately to allow for html rendering. They use [jest](https://jestjs.io/). In order to run them you must run "npm install jest". Once installed, you run the command "npm run test" in the terminal.
 ## Questions
 For any questions please find me on GitHub or email me: 
 
