@@ -16,9 +16,9 @@ const getClass =
 [
     {
       type: `list`,
-      message:`What job title are you adding? Please add yourself (manager) first.`,
+      message:`What job title are you adding?`,
       name: `employeeClass`,
-      choices: [`manager`, `engineer`, `intern`, `no more employees to add`]
+      choices: [`engineer`, `intern`, `no more employees to add`]
     }
 ];
 // inquirer questions to identify manager information
@@ -26,17 +26,17 @@ const managerInfo =
 [ 
     {
       type: `input`,
-      message:`What is the Employee's name?`,
+      message:`Hello, Manager. Let's build your team. First let's collect YOUR info. What is your name?`,
       name: `name`
     },
     {
       type: `input`,
-      message:`What is their employee ID?`,
+      message:`What is your employee ID?`,
       name: `id`
     },
     {
       type: `input`,
-      message:`What is their email address?`,
+      message:`What is your email address?`,
       name: `email`
     },
     {
@@ -50,7 +50,7 @@ const internInfo =
 [    
     {
       type: `input`,
-      message:`What is the Employee's name?`,
+      message:`What is the Intern's name?`,
       name: `name`
     },
     {
@@ -75,7 +75,7 @@ const engineerInfo =
 [
     {
       type: `input`,
-      message:`What is the Employee's name?`,
+      message:`What is the Engineer's name?`,
       name: `name`
     },
     {
@@ -95,20 +95,24 @@ const engineerInfo =
     },
 ]
 // function to prompt for employee info and use info to create objects for each team member
+
+const addManager = () => {   // get class
+inquirer.prompt(managerInfo).then((response) => {
+       
+    let manager = new Manager (response.name, response.id, response.email, response.officeNumber);
+            employeeArr.push(manager);
+            gatherInfo()
+});
+}
+addManager ()
+
 const gatherInfo = () => {
-    // get class
+    
+ 
     inquirer.prompt(getClass).then((response) => {
-        console.table(response)
-        // promise return in event of manager selected
-        if (response.employeeClass === `manager`){
-            inquirer.prompt(managerInfo).then((response) => {
-                let manager = new Manager (response.name, response.id, response.email, response.officeNumber);
-                employeeArr.push(manager);
-                gatherInfo();
-            });
-        }
+        
           // promise return in event of engineer selected
-        else if (response.employeeClass === `engineer`){
+      if (response.employeeClass === `intern`){
             inquirer.prompt(internInfo).then((response) => {
                 let intern = new Intern (response.name, response.id, response.email, response.school);
                 employeeArr.push(intern);
@@ -116,7 +120,7 @@ const gatherInfo = () => {
             });
         }
           // promise return in event of intern selected
-        else if (response.employeeClass === `intern`){
+        else if (response.employeeClass === `engineer`){
             inquirer.prompt(engineerInfo).then((response) => {
                 let engineer = new Engineer (response.name, response.id, response.email, response.github);
                 employeeArr.push(engineer);
@@ -137,7 +141,7 @@ const gatherInfo = () => {
     });
   
 }
-gatherInfo()
+
 
 
 
