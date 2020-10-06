@@ -17,7 +17,7 @@ This program requires Node.js and the installation of [inquirer](https://www.npm
 ## Usage 
 Once inquirer has been installed and all files are in place, you run the "node app.js" command in the terminal and answer the prompts. When done adding additional employees, you select the option saying "no more employees to add" and an html file is rendered with all of the information that was input in the CLI.
 
-[Walkthrough Video](https://drive.google.com/file/d/13Gp1Kg-7BdlLMqvNSQeTK82Wym4qgf9g/view)
+[Walkthrough Video](https://drive.google.com/file/d/1Rmb49wNFIXwP_scPb194CS4PPpTI5NFS/view)
 
 ## License 
 
