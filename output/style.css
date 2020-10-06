@@ -15,3 +15,15 @@ body {
 .jumbotron {
     background: lightskyblue;
 }
+
+.card-header {
+    background: grey;
+}
+
+.card-body {
+    background: lightskyblue;
+}
+
+.list-group-item {
+    background: lightgrey;
+}
