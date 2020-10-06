@@ -10,54 +10,118 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const manager = [];
-const intern = [];
-const engineer = [];
-const questions =[
+
+const getClass =
+[
     {
       type: `list`,
       message:`What job title are you adding? Please add yourself (manager) first.`,
       name: `employeeClass`,
-      choices: [`manager`, `engineer`, `intern`]
-    },
+      choices: [`manager`, `engineer`, `intern`, `no more employees to add`]
+    }
+];
     
+const managerInfo =
+[ 
     {
-      type: `list`,
+      type: `input`,
       message:`What is the Employee's name?`,
       name: `name`
     },
     {
-      type: `list`,
+      type: `input`,
       message:`What is their employee ID?`,
       name: `id`
     },
     {
-      type: `list`,
+      type: `input`,
       message:`What is their email address?`,
       name: `email`
     },
     {
-      type: `number`,
+      type: `input`,
       message:`What is your office number?`,
       name: `officeNumber`
+    }
+]
+
+const internInfo =
+[    
+    {
+      type: `input`,
+      message:`What is the Employee's name?`,
+      name: `name`
     },
     {
-      type: `list`,
-      message:`What school does the intern attend?`,
+      type: `input`,
+      message:`What is their employee ID?`,
+      name: `id`
+    },
+    {
+      type: `input`,
+      message:`What is their email address?`,
+      name: `email`
+    },
+    {
+      type: `input`,
+      message:`What school does the Intern attend?`,
       name: `school`
+    }
+]
+const engineerInfo =
+[
+    {
+      type: `input`,
+      message:`What is the Employee's name?`,
+      name: `name`
     },
     {
-      type: `list`,
+      type: `input`,
+      message:`What is their employee ID?`,
+      name: `id`
+    },
+    {
+      type: `input`,
+      message:`What is their email address?`,
+      name: `email`
+    },    
+    {
+      type: `input`,
       message:`What is the gitHub user profile for the Engineer?`,
       name: `github`
     },
 ]
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-inquirer.prompt(questions).then((response) => {
-
-});
-
+const gatherInfo = () => {
+    inquirer.prompt(getClass).then((response) => {
+        console.log(`what's wrong`)
+        if (response.employeeClass === `manager`) () => {
+            inquirer.prompt(managerInfo).then((response) => {
+            let manager = new Manager (`${response.name}`, `${response.id}`, `${response.email}`, `${response.officeNumber}`)
+            gatherInfo()
+            })
+        }
+        else if (response.employeeClass === `engineer`) () => {
+            inquirer.prompt(internInfo).then((response) => {
+            let inntern = new Intern (`${response.name}`, `${response.id}`, `${response.email}`, `${response.school}`)
+            gatherInfo()
+            })
+        }
+        else if (response.employeeClass === `intern`) () => {
+            inquirer.prompt(engineerInfo).then((response) => {
+            let engineer = new Engineer (`${response.name}`, `${response.id}`, `${response.email}`, `${response.github}`)
+            gatherInfo()
+            })
+        }
+        else if (response.employeeClass === `no more employees to add`) () => {
+            return;
+        }
+        console.log(`hmmmm`)
+    });
+    console.log(`huh`)
+}
+gatherInfo()
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
@@ -71,6 +135,11 @@ fs.writeFile(outputPath, employee, function(err){
         console.log(err)
     }
 })
+
+// FIXME: questions: how do I put the responses into an array to pass to htmlRenderer?
+// FIXME: question: WHY is it asking the first question but NOT allowing an answer or running through any other code?
+// FIXME: is the recursive use of gatherInfo accurate?????????
+
 
 // TODO: verify all of this starter stuff is done.
 // Hint: you may need to check if the `output` folder exists and create it if it
