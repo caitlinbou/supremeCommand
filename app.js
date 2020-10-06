@@ -7,10 +7,11 @@ const fs = require("fs");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-
+// function to render team.html document with information
 const render = require("./lib/htmlRenderer");
-
-
+// empty array to push employee data and then pass through render function
+const employeeArr =[];
+// inquirer question to identify class of employee
 const getClass =
 [
     {
@@ -20,7 +21,7 @@ const getClass =
       choices: [`manager`, `engineer`, `intern`, `no more employees to add`]
     }
 ];
-    
+// inquirer questions to identify manager information
 const managerInfo =
 [ 
     {
@@ -44,7 +45,7 @@ const managerInfo =
       name: `officeNumber`
     }
 ]
-
+// inquirer questions to identify intern information
 const internInfo =
 [    
     {
@@ -55,8 +56,9 @@ const internInfo =
     {
       type: `input`,
       message:`What is their employee ID?`,
-      name: `id`
-    },
+      name: `id`,
+    
+    },  
     {
       type: `input`,
       message:`What is their email address?`,
@@ -68,6 +70,7 @@ const internInfo =
       name: `school`
     }
 ]
+// inquirer questions to identify engineer information
 const engineerInfo =
 [
     {
@@ -91,65 +94,50 @@ const engineerInfo =
       name: `github`
     },
 ]
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+// function to prompt for employee info and use info to create objects for each team member
 const gatherInfo = () => {
+    // get class
     inquirer.prompt(getClass).then((response) => {
-        console.log(`what's wrong`)
-        if (response.employeeClass === `manager`) () => {
+        console.table(response)
+        // promise return in event of manager selected
+        if (response.employeeClass === `manager`){
             inquirer.prompt(managerInfo).then((response) => {
-            let manager = new Manager (`${response.name}`, `${response.id}`, `${response.email}`, `${response.officeNumber}`)
-            gatherInfo()
-            })
+                let manager = new Manager (response.name, response.id, response.email, response.officeNumber);
+                employeeArr.push(manager);
+                gatherInfo();
+            });
         }
-        else if (response.employeeClass === `engineer`) () => {
+          // promise return in event of engineer selected
+        else if (response.employeeClass === `engineer`){
             inquirer.prompt(internInfo).then((response) => {
-            let inntern = new Intern (`${response.name}`, `${response.id}`, `${response.email}`, `${response.school}`)
-            gatherInfo()
-            })
+                let intern = new Intern (response.name, response.id, response.email, response.school);
+                employeeArr.push(intern);
+                gatherInfo();
+            });
         }
-        else if (response.employeeClass === `intern`) () => {
+          // promise return in event of intern selected
+        else if (response.employeeClass === `intern`){
             inquirer.prompt(engineerInfo).then((response) => {
-            let engineer = new Engineer (`${response.name}`, `${response.id}`, `${response.email}`, `${response.github}`)
-            gatherInfo()
+                let engineer = new Engineer (response.name, response.id, response.email, response.github);
+                employeeArr.push(engineer);
+                gatherInfo();
+            });
+        }
+            // promise return in event employee data collection is complete
+        else if (response.employeeClass === `no more employees to add`){
+            fs.writeFile(outputPath, render(employeeArr), function(err){
+                if (err){
+                    console.log(err)
+                }
             })
-        }
-        else if (response.employeeClass === `no more employees to add`) () => {
             return;
+        
         }
-        console.log(`hmmmm`)
+      
     });
-    console.log(`huh`)
+  
 }
 gatherInfo()
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-
-fs.writeFile(outputPath, employee, function(err){
-    if (err){
-        console.log(err)
-    }
-})
-
-// FIXME: questions: how do I put the responses into an array to pass to htmlRenderer?
-// FIXME: question: WHY is it asking the first question but NOT allowing an answer or running through any other code?
-// FIXME: is the recursive use of gatherInfo accurate?????????
 
 
-// TODO: verify all of this starter stuff is done.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
 
