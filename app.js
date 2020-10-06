@@ -96,7 +96,7 @@ const engineerInfo =
 ]
 // function to prompt for employee info and use info to create objects for each team member
 
-const addManager = () => {   // get class
+const addManager = () => {   
 inquirer.prompt(managerInfo).then((response) => {
        
     let manager = new Manager (response.name, response.id, response.email, response.officeNumber);
@@ -111,7 +111,7 @@ const gatherInfo = () => {
  
     inquirer.prompt(getClass).then((response) => {
         
-          // promise return in event of engineer selected
+          // promise return in event of intern selected, calls function recursivley to add additional employees
       if (response.employeeClass === `intern`){
             inquirer.prompt(internInfo).then((response) => {
                 let intern = new Intern (response.name, response.id, response.email, response.school);
@@ -119,7 +119,7 @@ const gatherInfo = () => {
                 gatherInfo();
             });
         }
-          // promise return in event of intern selected
+          // promise return in event of engineer selected, calls function recursively to add additional employees
         else if (response.employeeClass === `engineer`){
             inquirer.prompt(engineerInfo).then((response) => {
                 let engineer = new Engineer (response.name, response.id, response.email, response.github);
@@ -127,7 +127,7 @@ const gatherInfo = () => {
                 gatherInfo();
             });
         }
-            // promise return in event employee data collection is complete
+            // promise return in event employee data collection is complete, returns from function and generates team.html file
         else if (response.employeeClass === `no more employees to add`){
             fs.writeFile(outputPath, render(employeeArr), function(err){
                 if (err){

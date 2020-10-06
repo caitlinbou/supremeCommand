@@ -1,7 +1,6 @@
 body {
     background: radial-gradient(circle at 100%, #8888ff, blue, rgb(33, 5, 56));
     background-size: cover;
-    /* background-repeat: no-repeat; */
 }
 
 .card {
